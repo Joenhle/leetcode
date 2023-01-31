@@ -1,0 +1,34 @@
+class Solution:
+    def canFinish(self, numCourses, prerequisites):
+        def has_circle(arr, node, flag, s):
+            if node in flag:
+                return True
+            if node in s:
+                return False
+            flag.add(node)
+            s.add(node)
+            for next_node in arr[node]:
+                if has_circle(arr, next_node, flag, s):
+                    return True
+            flag.remove(node)
+            return False
+        
+        arr = [[] for i in range(numCourses)]
+        in_degree = [0] * numCourses
+        for a, b in prerequisites:
+            if a == b:
+                return False
+            arr[a].append(b)
+            in_degree[b] += 1
+        s = set()
+        for i, _ in enumerate(in_degree):
+            if i in s:
+                continue
+            if has_circle(arr, i, set(), s):
+                return False
+                
+        return in_degree.count(0) != 0
+
+if __name__ == "__main__":
+    s = Solution()
+    print(s.canFinish(8, [[1,0],[2,6],[1,7],[6,4],[7,0],[0,5]]))

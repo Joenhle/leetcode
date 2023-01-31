@@ -1,0 +1,38 @@
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def deleteNode(self, root, key):
+        def find_node(node, key):
+            if node is None:
+                return
+            delete_node, direction = None, None
+            if node.left and node.left.val == key:
+                delete_node, direction = node.left, "left"
+            elif node.right and node.right.val == key:
+                delete_node, direction = node.right, "right"
+            if delete_node:
+                if not delete_node.left:
+                    temp = delete_node.right
+                elif not delete_node.right:
+                    temp = delete_node.left
+                else:
+                    temp = delete_node.right
+                    temp_left = temp.left
+                    temp.left = delete_node.left
+                    most_right = delete_node.left
+                    while most_right.right:
+                        most_right = most_right.right
+                    most_right.right = temp_left
+                if direction == "left":
+                    node.left = temp
+                else:
+                    node.right = temp
+            find_node(node.left, key)
+            find_node(node.right, key)
+        fake = TreeNode(left = root)
+        find_node(fake, key)
+        return fake.left

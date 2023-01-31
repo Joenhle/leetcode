@@ -1,0 +1,14 @@
+public class Main {
+
+    public int minOperations(int n) {
+        if (n % 2 == 0){
+            return n*n/4;
+        }else {
+            return (n*n-1)/4;
+        }
+    }
+
+    public static void main(String[] args) {
+
+    }
+}

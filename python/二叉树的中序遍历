@@ -1,0 +1,14 @@
+class Solution:
+    def inorderTraversal(self, root):
+
+        def in_order(node, arr):
+            if node is None:
+                return
+            in_order(node.left, arr)
+            arr.append(node.val)
+            in_order(node.right, arr)
+
+        arr = []
+        in_order(root, arr)
+        return arr
+        

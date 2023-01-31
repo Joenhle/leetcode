@@ -1,0 +1,14 @@
+class S:
+    def a(self):
+        dp = [1, 2, 3]
+        def b(y):
+            dp.append(4)
+            dp[1] = y
+            return dp
+        return b
+
+
+if __name__ == "__main__":
+    s = S()
+    f = s.a()
+    print(f(10))
